@@ -5,11 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
-
 import java.util.UUID;
 
 @Data
-@Entity(name = "user")
+@Entity(name = "tb_users")
 public class UserModel {
 
     @Id
@@ -19,6 +18,7 @@ public class UserModel {
 
     @Column(unique = true)
     private String username;
+
     private String age;
     private String email;
     private String password;
