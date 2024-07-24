@@ -11,24 +11,35 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-   private UserRepository userRepository;
+    private UserRepository userRepository;
 
     @PostMapping("/")
     public ResponseEntity createUser(@RequestBody UserModel userModel) {
        UserModel user = this.userRepository.save(userModel);
+
        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping("/")
     public ResponseEntity findAllUsers() {
         var users = this.userRepository.findAll();
+
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity findOneUser(UserModel userModel, @PathVariable UUID id) {
         UserModel user = this.userRepository.findById(id).orElse(null);
+
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateUser(@RequestBody UserModel userModel, @PathVariable UUID id) {
+
+        UserModel userUpdated = this.userRepository.findOneAndUpdate(id, userModel);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userUpdated);
     }
 
 
