@@ -42,5 +42,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userUpdated);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteUser(@RequestBody UserModel userModel, @PathVariable UUID id) {
+        UserModel user = this.userRepository.findById(id).orElse(null);
+        this.userRepository.delete(user);
+
+        ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso!");
+    }
 
 }
